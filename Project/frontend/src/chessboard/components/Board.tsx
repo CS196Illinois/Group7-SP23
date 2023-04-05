@@ -87,7 +87,9 @@ export function Board() {
         })}
       </svg>
     </div>
+    
   ) : (
     <WhiteKing />
   );
+  
 }
