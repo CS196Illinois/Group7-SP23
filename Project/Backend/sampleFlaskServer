@@ -1,0 +1,8 @@
+from flask import Flask, redirect, url_for
+
+app = Flask(__name__)
+def home():
+    return "Hello! This is a sample home page"
+
+if __name__ == "make_a_move":
+    app.run()
