@@ -14,24 +14,26 @@ export default function App() {
     console.log(updatedposition);
   }
   
-  let bturn = {"turn":"black",position};
-  let wturn = {"turn":"white",position};
   function submitPositionB() {
-   fetch('http://localhost:3000/', {
+    let bturn = {"turn":"black",position};
+    fetch('http://localhost:5002/', {
      method: 'POST',
      headers: {"Content-Type": "application/json" },
      body: JSON.stringify(bturn)
-   }).then(() => {
-     console.log(bturn);
+   }).then(response => {
+     console.log(response);
+     setPosition(updatedposition);
    })
   }
   function submitPositionW() {
-    fetch('http://localhost:3000/', {
+    let wturn = {"turn":"white",position};
+    fetch('http://localhost:5002/', {
       method: 'POST',
       headers: {"Content-Type": "application/json" },
       body: JSON.stringify(wturn)
-    }).then(() => {
-      console.log(wturn);
+    }).then(response => {
+      console.log(response);
+      setPosition(updatedposition);
     })
    }
   return (
