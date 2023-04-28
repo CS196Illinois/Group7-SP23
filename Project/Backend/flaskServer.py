@@ -1,13 +1,14 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, jsonify
 import chess
 import itertools
 import os
 import chess.engine
 import json 
+from flask_cors import CORS
 
 stockfishPath =  os.path.dirname(__file__) + "\stockfish\Stockfish.exe"
 app = Flask(__name__)
-
+CORS(app)
 @app.route("/", methods=["POST"])
 # def convert():
     
@@ -68,7 +69,10 @@ def hello():
     # Replace with chess move-making logic
     print(board.fen()) 
     converted = str(board.fen())
-    return (converted)
+    data = {
+        "updatedposition" : converted
+    }
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run(host="localhost", port=5002, debug=True)

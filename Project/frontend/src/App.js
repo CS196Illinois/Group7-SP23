@@ -20,22 +20,28 @@ export default function App() {
      method: 'POST',
      headers: {"Content-Type": "application/json" },
      body: JSON.stringify(bturn)
-   }).then(response => {
-     console.log(response);
-     setPosition(updatedposition);
+   }).then( response => response.json()
+   ).then( body => {
+      //  console.log(response.json());
+      //  let body = response.json();
+       console.log(body)
+       setPosition(body.updatedposition);
    })
   }
   function submitPositionW() {
     let wturn = {"turn":"white",position};
     fetch('http://localhost:5002/', {
-      method: 'POST',
-      headers: {"Content-Type": "application/json" },
-      body: JSON.stringify(wturn)
-    }).then(response => {
-      console.log(response);
-      setPosition(updatedposition);
-    })
-   }
+     method: 'POST',
+     headers: {"Content-Type": "application/json" },
+     body: JSON.stringify(wturn)
+   }).then( response => response.json()
+   ).then( body => {
+      //  console.log(response.json());
+      //  let body = response.json();
+       console.log(body)
+       setPosition(body.updatedposition);
+   })
+  }
   return (
     <><div>
       <Chessboard id="BasicBoard" boardWidth={500} position={position} getPositionObject={updatePosition}/>
