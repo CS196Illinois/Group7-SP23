@@ -29,20 +29,22 @@ def hello():
     print(type(move))
     x = 8
     for i in range(8):
-        for j in range(8):
+        j = 0
+        while (j < 8):
             templetter = arrayAtoH[j] + str(x)
             if (templetter not in requestBody['position']):
                 y = 0
                 while (templetter not in requestBody['position']):
                     y += 1
-                    if (j + y > 8):
+                    if (j + y >= 8):
                         break
                     templetter = arrayAtoH[j+y] + str(x)
                     
-                j = y
+                j += y
                 y = str(y)
                 convertedPossition += y
                 y = int(y)
+                
                 y = 0
             elif(templetter in requestBody['position']):
                 addedPice = requestBody['position'][templetter]
@@ -51,20 +53,21 @@ def hello():
                 elif(addedPice[0] == "w"):
                     addedPiceConvcerted = addedPice[1].upper()
                 convertedPossition += addedPiceConvcerted
+                j += 1
         convertedPossition += "/"
         x -= 1
     convertedPossition = convertedPossition[0:len(convertedPossition)-1]
     convertedPossition += " " + convertedTurn + " KQkq - 2 4"
     
     print(convertedPossition)
-    board = chess.Board("r1bqkbnr/p1pp1ppp/1pn5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 2 4")
+    board = chess.Board(convertedPossition)
     engine = chess.engine.SimpleEngine.popen_uci(stockfishPath)
     result = engine.play(board, chess.engine.Limit(time=0.1))
     board.push(result.move)
     engine.quit()
     # Replace with chess move-making logic
-    print(board) 
-    converted = str(board)
+    print(board.fen()) 
+    converted = str(board.fen())
     return (converted)
 
 if __name__ == "__main__":
